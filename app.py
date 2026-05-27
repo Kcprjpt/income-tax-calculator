@@ -97,6 +97,7 @@ def calculate_taxes(income, invest_80c, other_ded, nps_ded):
 
     return old_tax_final, new_tax_final, old_taxable, new_taxable
 
+
 # Execution Call
 old_tax, new_tax, old_taxable, new_taxable = calculate_taxes(gross_income, investments_80c, other_deductions, nps_80ccd)
 best_regime = "New Regime" if new_tax <= old_tax else "Old Regime"
@@ -154,14 +155,15 @@ mc3.markdown(f"<div class='custom-card' style='border-left-color:#34D399;'><b>Ne
 st.write("---")
 st.subheader("🔒 Smart Tax-Saving Optimization Insights")
 
-st.info(f"📋 **Taxable Income Summary:** Old Regime Taxable Income is **₹{old_taxable:,}** | New Regime Taxable Income is **₹{new_taxable:,}**.")
+st.info(f"📋 **Taxable Income Summary:** Old Regime Taxable Income is **₹{old_taxable:,.2f}** | New Regime Taxable Income is **₹{new_taxable:,.2f}**.")
+
 
 if best_regime == "New Regime" and new_tax == 0:
-    st.success("🎉 **Great News!** Aapki net taxable income New Regime ke ₹12 Lakhs rebate bracket ke andar aati hai, isliye aapko koi tax nahi dena padega!")
+    st.success("🎉 **Great News!** Your net taxable income falls within the New Regime rebate threshold. Your net tax liability is zero!")
 elif best_regime == "New Regime":
-    st.info("💡 **Insight:** Aap New Regime me hain jisme basic investment exemptions nahi milti. Tax kam karne ke liye aap corporate standard NPS 80CCD(2) scheme ka benefit employer ke through claim kar sakte hain.")
+    st.info("💡 **Insight:** You are currently optimized under the New Regime. Standard personal investments like Section 80C or HRA exemptions do not apply here. To lower your tax liability further, consider utilizing corporate National Pension Scheme (NPS) contributions under Section 80CCD(2) through your employer.")
 else:
-    st.warning("⚠️ **Tax Saving Opportunity Found:** Aap Old Regime me hain.")
+    st.warning("⚠️ **Tax Saving Opportunity Found:** You are currently optimized under the Old Regime.")
     if investments_80c < 150000:
         shortfall = 150000 - investments_80c
-        st.success(f"💡 **Action Item:** Agar aap Section 80C me **₹{shortfall:,}** aur invest karte hain, toh aapka tax aur kam ho jayega!")
+        st.success(f"💡 **Action Item:** If you invest an additional **₹{shortfall:,.2f}** under Section 80C (such as PPF, ELSS, or Tax-Saver FDs), your taxable income and overall tax liability will decrease further!")
